@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 using DataAccess.Manager.Services;
 using DataServiceProvider.Abstractions;
 using DataServiceProvider.FactoryImplementations;
@@ -12,7 +13,8 @@ namespace DataServiceProvider.Services
     public static IServiceCollection AddDataAccessServiceInternals (this IServiceCollection services)
     {
       services.AddDataAccessManagerInternals();
-      services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+      var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+      services.AddAutoMapper(assemblies);
       services.AddScoped<ICarService, CarService>();
       services.AddScoped<ICarUserService, CarUserService>();
       services.AddScoped<ICarPictureService, CarPictureService>();
