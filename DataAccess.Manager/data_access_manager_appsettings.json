@@ -1,0 +1,10 @@
+{
+  "DatabaseProvider": "MongoDb",
+
+  "PreferredOrm": "Dapper",
+
+  "ConnectionStrings": {
+    "MSSql": "Server=DESKTOP-2JV13MI;Database=TestCarRegistrationDb;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "MongoDb": "mongodb://cosmos-dev-db:wQ8l4fxNzBKwarhxr3ZQ8RJpLhKoQrhRiG34x5EOGzS00767Z0ZrbKncC8g51Mp3dbLS3t9sXZsZOe7L9cxB7w==@cosmos-dev-db.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@cosmos-dev-db@"
+  }
+}

@@ -1,0 +1,10 @@
+2021-03-13 22:51:43.268 +03:00 [INF] User profile is available. Using 'C:\Users\Aleksandar\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-03-13 22:51:43.651 +03:00 [INF] Now listening on: https://localhost:5001
+2021-03-13 22:51:43.651 +03:00 [INF] Now listening on: http://localhost:5000
+2021-03-13 22:51:43.652 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-03-13 22:51:43.652 +03:00 [INF] Hosting environment: Development
+2021-03-13 22:51:43.652 +03:00 [INF] Content root path: F:\CarRegistratorApp\WebApi
+2021-03-13 22:51:44.688 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2021-03-13 22:51:44.757 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 70.2116ms
+2021-03-13 22:51:45.038 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2021-03-13 22:51:45.118 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 80.5232ms

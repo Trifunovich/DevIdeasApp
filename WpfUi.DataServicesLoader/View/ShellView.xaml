@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfUi.DataServicesLoader.View.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfUi.DataServicesLoader.View"
+        xmlns:viewModel="clr-namespace:WpfUi.DataServicesLoader.ViewModel"
+        xmlns:s="https://github.com/canton7/Stylet"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModel:ShellViewModel}"
+        Title="ShellView" Height="450" Width="800">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition></RowDefinition>
+      </Grid.RowDefinitions>
+      <Label FontSize="16" FontWeight="DemiBold" Content="Here we display the data in the active data store (see configurations of the respected libraries):"></Label>
+      <UserControl Grid.Row ="1" s:View.Model="{Binding ActiveItem}"></UserControl>
+     
+    </Grid>
+</Window>
