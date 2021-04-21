@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfUi.DataServicesLoader", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapperSharedLibrary", "MapperSharedLibrary\MapperSharedLibrary.csproj", "{0E994481-02D2-4E4E-B415-A3D57664DB3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUi.NetFramework.DataServicesLoader", "WpfUi.NetFramework.DataServicesLoader\WpfUi.NetFramework.DataServicesLoader.csproj", "{E44A4D31-0722-4EB2-8C80-A7D7FE9487AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{0E994481-02D2-4E4E-B415-A3D57664DB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E994481-02D2-4E4E-B415-A3D57664DB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E994481-02D2-4E4E-B415-A3D57664DB3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44A4D31-0722-4EB2-8C80-A7D7FE9487AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44A4D31-0722-4EB2-8C80-A7D7FE9487AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44A4D31-0722-4EB2-8C80-A7D7FE9487AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44A4D31-0722-4EB2-8C80-A7D7FE9487AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,6 +137,7 @@ Global
 		{460B2B18-5D7F-43BF-BE4D-D12E5E0869F2} = {B75CBAD5-9EE2-4D27-8424-FDE8C34C428B}
 		{AC5C0633-DE8A-4138-B2D8-86F77C56F5AC} = {B75CBAD5-9EE2-4D27-8424-FDE8C34C428B}
 		{119A9D75-FF6E-415B-B64B-10A1A607288A} = {D13BF510-97CB-4655-88C4-5E255CA801F2}
+		{E44A4D31-0722-4EB2-8C80-A7D7FE9487AA} = {D13BF510-97CB-4655-88C4-5E255CA801F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38A5C93B-9496-4AE6-8DDB-0E535387FC3C}

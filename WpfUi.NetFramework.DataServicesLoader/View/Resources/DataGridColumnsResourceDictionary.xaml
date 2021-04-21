@@ -1,0 +1,85 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:collections1="clr-namespace:System.Collections;assembly=mscorlib">
+  <collections1:ArrayList x:Key="CarPictureColumns">
+    <DataGridTextColumn Header="Id"
+                          Binding="{Binding Id}"></DataGridTextColumn>
+    <DataGridTextColumn Header="Label"
+                          Binding="{Binding Label}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="Picture"
+                          Width="*"
+                          Binding="{Binding Picture}"></DataGridTextColumn>
+    <DataGridCheckBoxColumn Header="Active"
+                          Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+    <DataGridTextColumn Header="Created on"
+                          Binding="{Binding CreatedOn}"></DataGridTextColumn>
+  </collections1:ArrayList>
+
+  <collections1:ArrayList x:Key="CarDocumentColumns">
+    <DataGridTextColumn Header="Id"
+                          Binding="{Binding Id}"></DataGridTextColumn>
+    <DataGridTextColumn Header="Label"
+                          Binding="{Binding Label}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="Mileage"
+                          Width="*"
+                          Binding="{Binding Mileage}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="Document type"
+                          Width="*"
+                          Binding="{Binding TypeOfDoc}"></DataGridTextColumn>
+    <DataGridCheckBoxColumn Header="Active"
+                              Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+    <DataGridTextColumn Header="Created on"
+                          Binding="{Binding CreatedOn}"></DataGridTextColumn>
+  </collections1:ArrayList>
+
+  <collections1:ArrayList x:Key="CarDocumentHistoryColumns">
+    <DataGridTextColumn Header="Id"
+                          Binding="{Binding Id}"></DataGridTextColumn>
+    <DataGridTextColumn Header="Label"
+                          Binding="{Binding Label}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="Car"
+                          Width="*"
+                          Binding="{Binding CarId}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="Doc count"
+                          Width="*"
+                          Binding="{Binding Docs.Count}"></DataGridTextColumn>
+    <DataGridCheckBoxColumn Header="Active"
+                              Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+    <DataGridTextColumn Header="Created on"
+                          Binding="{Binding CreatedOn}"></DataGridTextColumn>
+  </collections1:ArrayList>
+
+  <collections1:ArrayList x:Key="CarColumns">
+    <DataGridTextColumn Header="Id"
+                          Binding="{Binding Id}"></DataGridTextColumn>
+    <DataGridTextColumn Header="Label"
+                          Binding="{Binding Label}"></DataGridTextColumn>
+    <DataGridCheckBoxColumn Header="Active"
+                              Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+    <DataGridTextColumn Header="Created on"
+                          Binding="{Binding CreatedOn}"></DataGridTextColumn>
+  </collections1:ArrayList>
+
+  <collections1:ArrayList x:Key="CarUserColumns">
+    <DataGridTextColumn Header="Id"
+                          Binding="{Binding Id}"></DataGridTextColumn>
+    <DataGridTextColumn Header="Label"
+                          Binding="{Binding Label}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="E-mail"
+                          Width="*"
+                          Binding="{Binding Email}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="Full name"
+                          Width="*"
+                          Binding="{Binding FullName}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="DoB"
+                          Width="*"
+                          Binding="{Binding DateOfBirth}"></DataGridTextColumn>
+    <DataGridTextColumn Header ="Car count"
+                          Width="*"
+                          Binding="{Binding Cars.Count}"></DataGridTextColumn>
+    <DataGridCheckBoxColumn Header="Active"
+                              Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+    <DataGridTextColumn Header="Created on"
+                          Binding="{Binding CreatedOn}"></DataGridTextColumn>
+  </collections1:ArrayList>
+</ResourceDictionary>
