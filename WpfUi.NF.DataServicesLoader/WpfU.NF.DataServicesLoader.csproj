@@ -46,6 +46,9 @@
     <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper.Contrib.Autofac.DependencyInjection, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Contrib.Autofac.DependencyInjection.5.3.0\lib\netstandard2.0\AutoMapper.Contrib.Autofac.DependencyInjection.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper.Extensions, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.Extensions.2.1.0\lib\netstandard2.0\AutoMapper.Extensions.dll</HintPath>
     </Reference>
@@ -334,6 +337,7 @@
     <Compile Include="AutofacBootstrapper.cs" />
     <Compile Include="Behaviors\DataGridLayoutUpdateBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="DiResolver\ServiceCollectionExtension.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Factories\DisplayDataControlViewModelFactory.cs" />
     <Compile Include="MicrosoftDependencyInjectionBootstrapper.cs" />
@@ -368,7 +372,7 @@
     </EmbeddedResource>
     <None Include="appsettings.Development.json" />
     <None Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="libmongocrypt.dylib" />
     <None Include="libmongocrypt.so" />
@@ -389,6 +393,10 @@
     <ProjectReference Include="..\FakerSharedLibrary\FakerSharedLibrary.csproj">
       <Project>{9E4AF2DE-EAA4-43FD-8FF8-FBDC25DC5DD6}</Project>
       <Name>FakerSharedLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoggingLibrary\LoggingLibrary.csproj">
+      <Project>{E528409E-861D-42A8-822F-33AF3CD80AA7}</Project>
+      <Name>LoggingLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\MapperSharedLibrary\MapperSharedLibrary.csproj">
       <Project>{0E994481-02D2-4E4E-B415-A3D57664DB3F}</Project>
@@ -419,6 +427,7 @@
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MongoDB.Libmongocrypt.1.2.1\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.2.1\build\MongoDB.Libmongocrypt.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

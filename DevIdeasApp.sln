@@ -45,6 +45,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapperSharedLibrary", "Mapp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfU.NF.DataServicesLoader", "WpfUi.NF.DataServicesLoader\WpfU.NF.DataServicesLoader.csproj", "{74FDF021-E8A4-4810-9F87-FFA4AFE043EB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelperLibraries", "HelperLibraries", "{E8BA338A-FCB5-498B-9439-547C34C76A2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingLibrary", "LoggingLibrary\LoggingLibrary.csproj", "{E528409E-861D-42A8-822F-33AF3CD80AA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +123,10 @@ Global
 		{74FDF021-E8A4-4810-9F87-FFA4AFE043EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74FDF021-E8A4-4810-9F87-FFA4AFE043EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74FDF021-E8A4-4810-9F87-FFA4AFE043EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E528409E-861D-42A8-822F-33AF3CD80AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E528409E-861D-42A8-822F-33AF3CD80AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E528409E-861D-42A8-822F-33AF3CD80AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E528409E-861D-42A8-822F-33AF3CD80AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +146,7 @@ Global
 		{AC5C0633-DE8A-4138-B2D8-86F77C56F5AC} = {B75CBAD5-9EE2-4D27-8424-FDE8C34C428B}
 		{119A9D75-FF6E-415B-B64B-10A1A607288A} = {D13BF510-97CB-4655-88C4-5E255CA801F2}
 		{74FDF021-E8A4-4810-9F87-FFA4AFE043EB} = {D13BF510-97CB-4655-88C4-5E255CA801F2}
+		{E528409E-861D-42A8-822F-33AF3CD80AA7} = {E8BA338A-FCB5-498B-9439-547C34C76A2E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38A5C93B-9496-4AE6-8DDB-0E535387FC3C}

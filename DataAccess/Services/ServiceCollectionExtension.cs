@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Autofac;
+using DataAccess.Core.Validation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DataAccess.Services
 {
@@ -6,8 +8,12 @@ namespace DataAccess.Services
   {
     public static IServiceCollection AddDataAccessInternals (this IServiceCollection services)
     {
-     
       return services;
+    }
+
+    public static ContainerBuilder AddDataAccessInternals(this ContainerBuilder builder)
+    {
+      return builder;
     }
   }
 }

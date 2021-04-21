@@ -1,4 +1,5 @@
-﻿using DataAccess.Core.Validation;
+﻿using Autofac;
+using DataAccess.Core.Validation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DataAccess.Core.Services
@@ -12,6 +13,12 @@ namespace DataAccess.Core.Services
     {
       services.AddScoped<IRepositoryInputValidator, RepositoryInputValidator>();
       return services;
+    }
+
+    public static ContainerBuilder AddDataAccessCoreInternals(this ContainerBuilder builder)
+    {
+      builder.RegisterType<RepositoryInputValidator>().As<IRepositoryInputValidator>();
+      return builder;
     }
   }
 }

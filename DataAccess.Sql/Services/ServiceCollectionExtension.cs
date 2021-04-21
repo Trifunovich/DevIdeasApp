@@ -1,4 +1,5 @@
-﻿using DataAccess.Core.Abstractions;
+﻿using Autofac;
+using DataAccess.Core.Abstractions;
 using DataAccess.Sql.Abstractions;
 using DataAccess.Sql.Context;
 using DataAccess.Sql.Helpers;
@@ -27,6 +28,24 @@ namespace DataAccess.Sql.Services
     private static void ResolveRepos<T>(IServiceCollection services) where T : SqlDataModelBase
     {
       services.AddScoped(typeof(IDataRepository<T>), ConnectionHelper.Orm == Enums.OrmType.Dapper ? typeof(DapperDataRepository<T>) : typeof(EfDataRepository<T>));
+    }
+
+    private static void ResolveRepos<T>(ContainerBuilder builder) where T : SqlDataModelBase
+    {
+      builder.RegisterType(ConnectionHelper.Orm == Enums.OrmType.Dapper ? typeof(DapperDataRepository<T>) : typeof(EfDataRepository<T>)).As<IDataRepository<T>>();
+    }
+
+    public static ContainerBuilder AddSqlDataAccessInternals(this ContainerBuilder builder)
+    {
+      builder.RegisterType(typeof(SqlConnectionFactory)).As(typeof(ISqlConnectionFactory)).SingleInstance();
+      builder.RegisterGeneric(typeof(DapperResolver<>)).As(typeof(IDapperResolver<>)).SingleInstance();
+      ResolveRepos<SqlCar>(builder);
+      ResolveRepos<SqlCarPicture>(builder);
+      ResolveRepos<SqlCarUser>(builder);
+      ResolveRepos<SqlCarDocument>(builder);
+      ResolveRepos<SqlCarDocumentHistory>(builder);
+
+      return builder;
     }
   }
 }

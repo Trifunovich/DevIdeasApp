@@ -41,7 +41,8 @@ namespace WpfUi.NF.DataServicesLoader
       services.AddSingleton<IWindowManager, WindowManager>();
       services.AddSingleton<IEventAggregator, EventAggregator>();
       services.AddTransient<IMessageBoxViewModel, MessageBoxViewModel>(); // Not singleton!
-                                                                          // Also need a factory
+                                                                          
+      // // Also need a factory
       services.AddSingleton<Func<IMessageBoxViewModel>>(() => new MessageBoxViewModel());
     }
 

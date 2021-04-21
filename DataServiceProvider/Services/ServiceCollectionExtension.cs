@@ -1,6 +1,8 @@
 ﻿
 using System;
 using System.Linq;
+using Autofac;
+using AutoMapper.Contrib.Autofac.DependencyInjection;
 using DataAccess.Manager.Services;
 using DataServiceProvider.Abstractions;
 using DataServiceProvider.FactoryImplementations;
@@ -29,6 +31,29 @@ namespace DataServiceProvider.Services
 
       services.AddSingleton<IManagerService, ManagerService>();
       return services;
+    }
+
+    public static ContainerBuilder AddDataAccessServiceInternals(this ContainerBuilder container)
+    {
+      container.AddDataAccessManagerInternals();
+      var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+      container.RegisterAutoMapper(assemblies);
+
+      container.RegisterType<CarService>().As<ICarService>();
+      container.RegisterType<CarUserService>().As<ICarUserService>();
+      container.RegisterType<CarPictureService>().As<ICarPictureService>();
+      container.RegisterType<CarDocumentService>().As<ICarDocumentService>();
+      container.RegisterType<CarDocumentHistoryService>().As<ICarDocumentHistoryService>();
+
+      container.RegisterType<CarServiceFactory>().As<ICarServiceFactory>().SingleInstance();
+      container.RegisterType<CarUserServiceFactory>().As<ICarUserServiceFactory>().SingleInstance();
+      container.RegisterType<CarPictureServiceFactory>().As<ICarPictureServiceFactory>().SingleInstance();
+      container.RegisterType<CarDocumentServiceFactory>().As<ICarDocumentServiceFactory>().SingleInstance();
+      container.RegisterType<CarDocumentHistoryServiceFactory>().As<ICarDocumentHistoryServiceFactory>().SingleInstance();
+
+      container.RegisterType<ManagerService>().As<IManagerService>().SingleInstance();
+
+      return container;
     }
   }
 }

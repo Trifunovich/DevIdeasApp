@@ -1,4 +1,5 @@
 ﻿using System;
+using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 using WpfUi.NF.DataServicesLoader.ViewModel;
 
@@ -11,17 +12,17 @@ namespace WpfUi.NF.DataServicesLoader.Factories
 
   public class DisplayDataControlViewModelFactory : IDisplayDataControlViewModelFactory
   {
-    private readonly IServiceProvider _container;
+    private readonly IComponentContext _container;
 
 
-    public DisplayDataControlViewModelFactory(IServiceProvider container)
+    public DisplayDataControlViewModelFactory(IComponentContext container)
     {
       _container = container;
     }
 
     public IDisplayDataControlViewModel CreateViewModel()
     {
-      return _container.GetRequiredService < IDisplayDataControlViewModel>();
+      return _container.Resolve<IDisplayDataControlViewModel>();
     }
   }
 }

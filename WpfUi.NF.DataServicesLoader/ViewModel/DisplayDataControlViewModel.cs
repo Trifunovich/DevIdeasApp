@@ -10,6 +10,7 @@ using DataServiceProvider.FactoryImplementations;
 using FakerSharedLibrary.FakeAbstractions;
 using FakerSharedLibrary.Fakers;
 using MapperSharedLibrary.Models;
+using Microsoft.Extensions.Logging;
 using Microsoft.Xaml.Behaviors.Core;
 using SharedCodeLibrary;
 
@@ -23,6 +24,7 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
     private readonly ICarDocumentHistoryServiceFactory _carDocumentHistoryServiceFactory;
     private readonly ICarDocumentServiceFactory _carDocumentServiceFactory;
     private readonly IMapper _mapper;
+    private readonly ILogger<DisplayDataControlViewModel> _logger;
     private DataType _selectedType;
     private ObservableCollection<IOutputDto> _dataCollection = new ObservableCollection<IOutputDto>();
     private int _loadCount = 20;
@@ -35,7 +37,8 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
     public DisplayDataControlViewModel(ICarServiceFactory carServiceFactory,
       ICarUserServiceFactory carUserServiceFactory, ICarPictureServiceFactory carPictureServiceFactory,
       ICarDocumentHistoryServiceFactory carDocumentHistoryServiceFactory, ICarDocumentServiceFactory carDocumentServiceFactory,
-      IMapper mapper)
+      IMapper mapper,
+      ILogger<DisplayDataControlViewModel> logger)
     {
       _carServiceFactory = carServiceFactory;
       _carUserServiceFactory = carUserServiceFactory;
@@ -43,6 +46,7 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
       _carDocumentHistoryServiceFactory = carDocumentHistoryServiceFactory;
       _carDocumentServiceFactory = carDocumentServiceFactory;
       _mapper = mapper;
+      _logger = logger;
     }
 
     protected override void OnInitialActivate()

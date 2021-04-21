@@ -1,11 +1,12 @@
 ﻿using System;
+using Autofac;
 using DataServiceProvider.Abstractions;
 
 namespace DataServiceProvider.FactoryImplementations
 {
-  internal class CarPictureServiceFactory : ScopedServiceFactoryBase<ICarPictureService>, ICarPictureServiceFactory
+  internal class CarPictureServiceFactory : AutoFacScopedServiceFactoryBase<ICarPictureService>, ICarPictureServiceFactory
   {
-    public CarPictureServiceFactory(IServiceProvider serviceProvider) : base(serviceProvider)
+    public CarPictureServiceFactory(IComponentContext serviceProvider) : base(serviceProvider)
     {
     }
   }
