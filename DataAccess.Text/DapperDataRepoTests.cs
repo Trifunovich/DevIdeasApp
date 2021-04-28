@@ -16,7 +16,7 @@ namespace DataAccess.Test
 {
   public class DapperDataRepoTests
   {
-    private static readonly Mock<ILogger<DapperDataRepository<SqlCar>>> LoggerMock = new Mock<ILogger<DapperDataRepository<SqlCar>>>();
+    private static readonly Mock<ILogger<DapperDataRepository<Car>>> LoggerMock = new Mock<ILogger<DapperDataRepository<Car>>>();
 
     public DapperDataRepoTests()
     {
@@ -65,11 +65,11 @@ namespace DataAccess.Test
     private readonly List<ICarBase> _expectedResult = GetTestCars(20).Where(c => c.IsActive == true).ToList();
     private readonly PagingParameters _defaultPagingParameters = new PagingParameters(1);
 
-    private Mock<IDapperResolver<SqlCar>> ResolverMock(string expectedSql, bool usePagingParams)
+    private Mock<IDapperResolver<Car>> ResolverMock(string expectedSql, bool usePagingParams)
     {
-      var resolverMock = new Mock<IDapperResolver<SqlCar>>();
+      var resolverMock = new Mock<IDapperResolver<Car>>();
       resolverMock.Setup(res => res.GetResults(expectedSql.Trim(), It.IsAny<object>()))
-        .ReturnsAsync(_expectedResult.Select(x => x as SqlCar).ToList());
+        .ReturnsAsync(_expectedResult.Select(x => x as Car).ToList());
       return resolverMock;
     }
 
@@ -77,19 +77,19 @@ namespace DataAccess.Test
     {
       var t = new Mock<IRepositoryInputValidator>();
       t.Setup(v => v.ValidatePagingParams(It.IsAny<PagingParameters>())).Returns(true);
-      t.Setup(v => v.ValidateValue<IList<SqlCar>>(It.IsAny<List<SqlCar>>())).Returns(true);
+      t.Setup(v => v.ValidateValue<IList<Car>>(It.IsAny<List<Car>>())).Returns(true);
       return t;
     }
 
-    private DapperDataRepository<SqlCar> GetTestingRepo(Mock<IDapperResolver<SqlCar>> resolverMock)
+    private DapperDataRepository<Car> GetTestingRepo(Mock<IDapperResolver<Car>> resolverMock)
     {
       var resolver = resolverMock.Object;
       var logger = LoggerMock.Object;
       var validator = ValidatorMock().Object;
-      return new DapperDataRepository<SqlCar>(resolver, logger, validator);
+      return new DapperDataRepository<Car>(resolver, logger, validator);
     }
 
-    private void PostVerifications(Mock<IDapperResolver<SqlCar>> resolverMock)
+    private void PostVerifications(Mock<IDapperResolver<Car>> resolverMock)
     {
       resolverMock.Verify(v => v.GetResults(It.IsAny<string>(), It.IsAny<object>()));
 

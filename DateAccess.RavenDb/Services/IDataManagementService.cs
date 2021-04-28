@@ -5,14 +5,14 @@ namespace DateAccess.RavenDb.Services
 {
   public interface IDataManagementService
   {
-    Task<bool> DisplayRavenEmbeddedServerInTheBrowser();
+    Task<string> DisplayRavenEmbeddedServerInTheBrowser();
   }
 
   internal class DataManagementService : IDataManagementService
   {
-    public Task<bool> DisplayRavenEmbeddedServerInTheBrowser()
+    public async Task<string> DisplayRavenEmbeddedServerInTheBrowser()
     {
-      return Task.FromResult(RavenDbContextFactory.DisplayServerInBrowser());
+      return await RavenDbContextFactory.DisplayServerInBrowser();
     }
   }
 }

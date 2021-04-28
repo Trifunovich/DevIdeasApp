@@ -7,6 +7,7 @@ using System.Windows.Input;
 using AutoMapper;
 using DataServiceProvider.Abstractions;
 using DataServiceProvider.FactoryImplementations;
+using DataServiceProvider.Services;
 using FakerSharedLibrary.FakeAbstractions;
 using FakerSharedLibrary.Fakers;
 using MapperSharedLibrary.Models;
@@ -25,11 +26,14 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
     private readonly ICarDocumentServiceFactory _carDocumentServiceFactory;
     private readonly IMapper _mapper;
     private readonly ILogger<DisplayDataControlViewModel> _logger;
+    private readonly IManagerService _managerService;
     private DataType _selectedType;
     private ObservableCollection<IOutputDto> _dataCollection = new ObservableCollection<IOutputDto>();
     private int _loadCount = 20;
     private int _insertCount = 50;
     private bool _isLoading;
+    private bool _ravenServerAvailable;
+    private string _ravenDbServerMsg;
 
     public ObservableCollection<DataType> DataTypesCollection { get; } = new ObservableCollection<DataType>();
 
@@ -38,7 +42,8 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
       ICarUserServiceFactory carUserServiceFactory, ICarPictureServiceFactory carPictureServiceFactory,
       ICarDocumentHistoryServiceFactory carDocumentHistoryServiceFactory, ICarDocumentServiceFactory carDocumentServiceFactory,
       IMapper mapper,
-      ILogger<DisplayDataControlViewModel> logger)
+      ILogger<DisplayDataControlViewModel> logger,
+      IManagerService managerService)
     {
       _carServiceFactory = carServiceFactory;
       _carUserServiceFactory = carUserServiceFactory;
@@ -47,6 +52,7 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
       _carDocumentServiceFactory = carDocumentServiceFactory;
       _mapper = mapper;
       _logger = logger;
+      _managerService = managerService;
     }
 
     protected override void OnInitialActivate()
@@ -120,6 +126,40 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
     }
 
     public ICommand InsertCommand => new ActionCommand(OnInsert);
+
+    public ICommand ShowRavenDbServerCommand
+    {
+      get
+      {
+        return new ActionCommand(async () =>
+        {
+          RavenDbServerMsg = await _managerService.DisplayEmbeddedRavenServer();
+        });
+      }
+    }
+
+    public string RavenDbServerMsg
+    {
+      get => _ravenDbServerMsg;
+      private set
+      {
+        if (value == _ravenDbServerMsg) return;
+        _ravenDbServerMsg = value;
+        NotifyOfPropertyChange();
+      }
+    }
+
+    public bool RavenServerAvailable
+    {
+      get => _ravenServerAvailable;
+      set
+      {
+        RavenDbServerMsg = value ? "Shown!" : "Server not running!";
+        if (value == _ravenServerAvailable) return;
+        _ravenServerAvailable = value;
+        NotifyOfPropertyChange();
+      }
+    }
 
     private async void OnInsert(object obj)
     {

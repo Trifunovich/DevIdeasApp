@@ -3,7 +3,7 @@ using DataAccess.Sql.Abstractions;
 
 namespace DataAccess.Sql.Models
 {
-  internal class SqlCarDocument : SqlDataModelBase, ICarDocumentBase
+  internal class CarDocument : SqlDataModelBase, ICarDocumentBase
   {
      public double Mileage { get; set; }
 

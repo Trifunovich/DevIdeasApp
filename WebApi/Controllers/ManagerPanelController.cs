@@ -32,7 +32,7 @@ namespace WebApi.Controllers
     public async Task<IActionResult> GetRavenBrowser()
     {
       var result = await _service.DisplayEmbeddedRavenServer();
-      return result ? Ok() :  StatusCode(StatusCodes.Status417ExpectationFailed, "Couldn't find the server");
+      return !string.IsNullOrEmpty(result) ? Ok() :  StatusCode(StatusCodes.Status417ExpectationFailed, "Couldn't find the server");
     }
   }
 }

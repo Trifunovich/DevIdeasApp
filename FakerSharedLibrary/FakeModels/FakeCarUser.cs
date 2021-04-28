@@ -19,6 +19,6 @@ namespace FakerSharedLibrary.FakeModels
 
     public DateTime DateOfBirth { get; set; }
 
-    public List<ICarBase> Cars { get; set; }
+    public List<ICarBase> GetCars { get; set; }
   }
 }

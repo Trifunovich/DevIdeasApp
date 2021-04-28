@@ -34,7 +34,7 @@ namespace DataAccess.Manager.Mapper
           result = typeof(RavenCar);
           break;
         case DatabaseProvider.Sql:
-          result = typeof(SqlCar);
+          result = typeof(Car);
           break;
         default:
           throw new ArgumentOutOfRangeException();
@@ -55,7 +55,7 @@ namespace DataAccess.Manager.Mapper
           result = typeof(RavenCarPicture);
           break;
         case DatabaseProvider.Sql:
-          result = typeof(SqlCarPicture);
+          result = typeof(CarPicture);
           break;
         default:
           throw new ArgumentOutOfRangeException();
@@ -76,7 +76,7 @@ namespace DataAccess.Manager.Mapper
           result = typeof(RavenCarDocument);
           break;
         case DatabaseProvider.Sql:
-          result = typeof(SqlCarDocument);
+          result = typeof(CarDocument);
           break;
         default:
           throw new ArgumentOutOfRangeException();
@@ -97,7 +97,7 @@ namespace DataAccess.Manager.Mapper
           result = typeof(RavenCarDocumentHistory);
           break;
         case DatabaseProvider.Sql:
-          result = typeof(SqlCarDocumentHistory);
+          result = typeof(CarDocumentHistory);
           break;
         default:
           throw new ArgumentOutOfRangeException();
@@ -118,7 +118,7 @@ namespace DataAccess.Manager.Mapper
           result = typeof(RavenCarUser);
           break;
         case DatabaseProvider.Sql:
-          result = typeof(SqlCarUser);
+          result = typeof(CarUser);
           break;
         default:
           throw new ArgumentOutOfRangeException();

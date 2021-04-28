@@ -20,13 +20,14 @@ namespace FakerSharedLibrary.Fakers
   public sealed class CarDocumentHistoryFaker : DefaultFake<FakeCarDocumentHistory>
   {
     private CarDocumentFaker docFaker = new CarDocumentFaker();
+    private Random rnd = new Random();
 
     public CarDocumentHistoryFaker()
     {
-      var fakeDocs = docFaker.Generate(25);
-
+      var fakeDocs = docFaker.Generate(25).OfType<ICarDocumentBase>().ToList();
+      var take = fakeDocs.OrderBy(x => rnd.Next()).Take(rnd.Next(0, fakeDocs.Count - 1));
       RuleFor(fake => fake.CarId, fake => 0);
-      RuleFor(fake => fake.Docs , fake => fakeDocs.OfType<ICarDocumentBase>().ToList());
+      RuleFor(fake => fake.DocIds , fake => take.Select(s => s.GetId));
     }
   }
 }

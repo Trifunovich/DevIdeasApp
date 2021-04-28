@@ -16,6 +16,6 @@ namespace DataAccess.Models
 
     DateTime DateOfBirth { get; set; }
 
-    List<ICarBase> Cars { get; set; }
+    List<ICarBase> GetCars { get; }
   }
 }

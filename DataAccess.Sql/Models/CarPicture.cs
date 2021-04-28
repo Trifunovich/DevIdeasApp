@@ -5,7 +5,7 @@ using DataAccess.Sql.Abstractions;
 namespace DataAccess.Sql.Models
 {
   [Table("CarPictures")]
-  internal class SqlCarPicture : SqlDataModelBase, ICarPictureBase
+  internal class CarPicture : SqlDataModelBase, ICarPictureBase
   {
     public string Picture { get; set; }
 

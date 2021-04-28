@@ -1,5 +1,5 @@
 {
-  "DatabaseProvider": "MongoDb",
+  "DatabaseProvider": "Sql",
 
   "PreferredOrm": "Dapper",
 

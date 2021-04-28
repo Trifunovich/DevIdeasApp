@@ -11,13 +11,13 @@ using SharedCodeLibrary;
 
 namespace DataAccess.Sql.Repositories
 {
-  class CarUserDapperDataRepository : DapperDataRepository<SqlCarUser>
+  class CarUserDapperDataRepository : DapperDataRepository<CarUser>
   {
-    public CarUserDapperDataRepository(IDapperResolver<SqlCarUser> resolver, ILogger<DapperDataRepository<SqlCarUser>> logger, IRepositoryInputValidator inputValidator) : base(resolver, logger, inputValidator)
+    public CarUserDapperDataRepository(IDapperResolver<CarUser> resolver, ILogger<DapperDataRepository<CarUser>> logger, IRepositoryInputValidator inputValidator) : base(resolver, logger, inputValidator)
     {
     }
 
-    protected override Func<bool?, Task<IList<SqlCarUser>>> GetAllFunction =>
+    protected override Func<bool?, Task<IList<CarUser>>> GetAllFunction =>
       async (bool? isActive) =>
       {
         var param = isActive == null ? null : new { IsActive = isActive };
@@ -25,29 +25,27 @@ namespace DataAccess.Sql.Repositories
       };
     
     
-    private Func<SqlCarUser, SqlCar, SqlCarUser> GetCarMapping()
+    private Func<CarUser, Car, CarUser> GetCarMapping()
     {
-      var lookup = new Dictionary<int, SqlCarUser>();
-      return new Func<SqlCarUser, SqlCar, SqlCarUser>((s, a) =>
+      var lookup = new Dictionary<int, CarUser>();
+      return new Func<CarUser, Car, CarUser>((s, a) =>
       {
         if (!lookup.TryGetValue(s.Id, out var carUser))
         {
           lookup.Add(s.Id, carUser = s);
         }
-
-        if (carUser.Cars == null)
-          carUser.Cars = new List<ICarBase>();
-        carUser.Cars.Add(a);
+        
+        carUser.CarCarUsers.Add(new CarCarUser{Car = a, CarUser = s});
         return carUser;
       });
     }
 
-    protected override Func<PagingParameters, bool?, Task<IList<SqlCarUser>>> GetPageFunction =>
+    protected override Func<PagingParameters, bool?, Task<IList<CarUser>>> GetPageFunction =>
       async (PagingParameters pager, bool? isActive) =>
       {
         string activeCheck = GetActiveCheckString(isActive, "cu.", true);
         var sql = ($@" {GetQuery}{activeCheck}
-                       ORDER BY cu.{nameof(SqlCarUser.Id)}
+                       ORDER BY cu.{nameof(CarUser.Id)}
                        OFFSET      @FirstElementPosition ROWS 
                        FETCH NEXT  @PageSize   ROWS ONLY");
         
@@ -56,7 +54,7 @@ namespace DataAccess.Sql.Repositories
         return results;
       };
 
-    protected override Func<DateTime, DateTime?, bool?, Task<IList<SqlCarUser>>> GetAllFunctionWithDates =>
+    protected override Func<DateTime, DateTime?, bool?, Task<IList<CarUser>>> GetAllFunctionWithDates =>
       async (DateTime createdAfter, DateTime? createdBefore, bool? isActive) =>
       {
         QueryParams param = isActive == null
@@ -92,9 +90,9 @@ namespace DataAccess.Sql.Repositories
       }
     }
     
-    private async Task<IList<SqlCarUser>> GetImplicit(object param)
+    private async Task<IList<CarUser>> GetImplicit(object param)
     {
-      var lookup = new Dictionary<int, SqlCarUser>();
+      var lookup = new Dictionary<int, CarUser>();
       await Resolver.Connection.QueryAsync(GetQuery, GetCarMapping(), param, transaction: Transaction);
       var resultList = lookup.Values;
       LogGotAll(lookup.Count);

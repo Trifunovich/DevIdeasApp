@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Builder;
 using DataAccess.Core.Services;
 using DataAccess.Manager.TestingStuff;
 using DataAccess.Models;
@@ -14,8 +13,6 @@ namespace DataAccess.Manager.Services
 {
   public static class ServiceCollectionExtension
   {
-
-
     /// <summary>
     /// Adds MS DI dependencies from this library
     /// </summary>
@@ -51,23 +48,11 @@ namespace DataAccess.Manager.Services
       builder.AddSqlDataAccessInternals();
     
 
-      builder.Register(ctx => ResolveCarAdapter(ctx)).As<IAdaptedDataRepository<ICarBase>>();
-        
-        //(ctx => builder.RegisterInstance(ResolveCarAdapter(ctx)));
-      builder.Register(ctx => builder.RegisterInstance(ResolveCarUserAdapter(ctx)));
-      builder.Register(ctx => builder.RegisterInstance(ResolveCarPictureAdapter(ctx)));
-      builder.Register(ctx => builder.RegisterInstance(ResolveCarDocumentAdapter(ctx)));
-      builder.Register(ctx => builder.RegisterInstance(ResolveCarDocumentHistoryAdapter(ctx)));
-
-      //  builder.RegisterType<IAdaptedDataRepository<ICarBase>>().As(ctx =>
-      //  {
-      //    return ResolveCarAdapter(ctx);
-      //  });
-
-      //builder.Register(ctx =>
-      //  {
-
-      //  });
+      builder.Register(ResolveCarAdapter).As<IAdaptedDataRepository<ICarBase>>();
+      builder.Register(ResolveCarUserAdapter).As<IAdaptedDataRepository<ICarUserBase>>();
+      builder.Register(ResolveCarPictureAdapter).As<IAdaptedDataRepository<ICarPictureBase>>();
+      builder.Register(ResolveCarDocumentAdapter).As<IAdaptedDataRepository<ICarDocumentBase>>();
+      builder.Register(ResolveCarDocumentHistoryAdapter).As<IAdaptedDataRepository<ICarDocumentHistoryBase>>();
 
       return builder;
     }

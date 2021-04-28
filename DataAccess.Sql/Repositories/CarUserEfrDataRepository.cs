@@ -11,28 +11,31 @@ using SharedCodeLibrary;
 
 namespace DataAccess.Sql.Repositories
 {
-  class CarUserEfrDataRepository : EfDataRepository<SqlCarUser>
+  class CarUserEfrDataRepository : EfDataRepository<CarUser>
   {
-    protected override Func<bool?, Task<IList<SqlCarUser>>> GetAllFunction =>
+    protected override Func<bool?, Task<IList<CarUser>>> GetAllFunction =>
       async (bool? isActive) =>
       {
-        return await DataSet.Include(x => x.Cars.Where(c => (isActive == null) || c.IsActive == isActive)).Where(cu => (isActive == null) || cu.IsActive == isActive).ToListAsync();
+        return await DataSet.Where(cu => (isActive == null) || cu.IsActive == isActive).ToListAsync();
+        //return await DataSet.Include(x => x.Cars.Where(c => (isActive == null) || c.IsActive == isActive)).Where(cu => (isActive == null) || cu.IsActive == isActive).ToListAsync();
       };
 
-    protected override Func<PagingParameters, bool?, Task<IList<SqlCarUser>>> GetPageFunction =>
+    protected override Func<PagingParameters, bool?, Task<IList<CarUser>>> GetPageFunction =>
       async (PagingParameters pager, bool? isActive) =>
       {
-        var results = await DataSet.Include(x => x.Cars).Where(x => isActive == null || x.IsActive == isActive).Skip(pager.FirstElementPosition).Take(pager.PageSize).ToListAsync(TokenSource.Token);
+        var results = await DataSet.Where(x => isActive == null || x.IsActive == isActive).Skip(pager.FirstElementPosition).Take(pager.PageSize).ToListAsync(TokenSource.Token);
+        //var results = await DataSet.Include(x => x.Cars).Where(x => isActive == null || x.IsActive == isActive).Skip(pager.FirstElementPosition).Take(pager.PageSize).ToListAsync(TokenSource.Token);
         return results;
       };
 
-    protected override Func<DateTime, DateTime?, bool?, Task<IList<SqlCarUser>>> GetAllFunctionWithDates =>
+    protected override Func<DateTime, DateTime?, bool?, Task<IList<CarUser>>> GetAllFunctionWithDates =>
       async (DateTime createdAfter, DateTime? createdBefore, bool? isActive) =>
       {
-        return await DataSet.Include(x => x.Cars.Where(c => (isActive == null) || c.IsActive == isActive)).Where(cu => (isActive == null || cu.IsActive == isActive) && cu.CreatedOn >= createdAfter && cu.CreatedOn <= (createdBefore ?? DateTime.Now)).ToListAsync();
+        return await DataSet.Where(cu => (isActive == null || cu.IsActive == isActive) && cu.CreatedOn >= createdAfter && cu.CreatedOn <= (createdBefore ?? DateTime.Now)).ToListAsync();
+        //return await DataSet.Include(x => x.Cars.Where(c => (isActive == null) || c.IsActive == isActive)).Where(cu => (isActive == null || cu.IsActive == isActive) && cu.CreatedOn >= createdAfter && cu.CreatedOn <= (createdBefore ?? DateTime.Now)).ToListAsync();
       };
 
-    public CarUserEfrDataRepository(IEfContextFactory contextFactory, ILogger<EfDataRepository<SqlCarUser>> logger, IRepositoryInputValidator inputValidator) : base(contextFactory, logger, inputValidator)
+    public CarUserEfrDataRepository(IEfContextFactory contextFactory, ILogger<EfDataRepository<CarUser>> logger, IRepositoryInputValidator inputValidator) : base(contextFactory, logger, inputValidator)
     {
     }
   }

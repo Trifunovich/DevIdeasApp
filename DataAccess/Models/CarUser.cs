@@ -14,6 +14,8 @@ namespace DataAccess.Models
 
     public DateTime DateOfBirth { get; set; }
 
-    public List<ICarBase> Cars { get; set; }
-  }
+    protected abstract void AddCar(ICarBase doc);
+
+    public abstract List<ICarBase> GetCars { get; }
+  };
 }

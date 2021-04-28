@@ -26,7 +26,7 @@ namespace DataServiceProvider.Tests
       mockedRepo.FillWithFakes();
 
       var mapperMock = new Mock<IMapper>();
-      mapperMock.Setup(m => m.Map<SqlCar, CarOutputDto>(It.IsAny<SqlCar>())).Returns(new CarOutputDto());
+      mapperMock.Setup(m => m.Map<Car, CarOutputDto>(It.IsAny<Car>())).Returns(new CarOutputDto());
 
       //oh
       var testingObject = new CarService(mockedRepo, mapperMock.Object, null );

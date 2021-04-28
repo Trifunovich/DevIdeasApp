@@ -1,5 +1,4 @@
 ﻿using System;
-using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DataServiceProvider.FactoryImplementations
@@ -15,19 +14,6 @@ namespace DataServiceProvider.FactoryImplementations
     public virtual T CreateService()
     {
       return Scope.ServiceProvider.GetRequiredService<T>();
-    }
-  }
-
-  internal class AutoFacScopedServiceFactoryBase<T> : AutoFacServiceFactoryBase, IScopedServiceFactoryBase<T>
-  {
-
-    protected AutoFacScopedServiceFactoryBase(IComponentContext serviceProvider) : base(serviceProvider)
-    {
-    }
-
-    public virtual T CreateService()
-    {
-      return ServiceProvider.Resolve<T>();
     }
   }
 }

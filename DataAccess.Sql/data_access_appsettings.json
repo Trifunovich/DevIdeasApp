@@ -2,6 +2,7 @@
   "PreferredOrm": "Dapper",
 
   "ConnectionStrings": {
-    "MSSql": "Server=DESKTOP-2JV13MI;Database=TestCarRegistrationDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "MSSql": "Server=DESKTOP-2JV13MI;Database=TestCarRegistrationDb;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "Sqlite": "Data Source=LocalSqliteDb.db;"
   }
 }

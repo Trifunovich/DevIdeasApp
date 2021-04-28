@@ -28,7 +28,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarBase, RavenCar>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarBase, SqlCar>(sp);
+          return GetAdapterDataRepository<ICarBase, Car>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -43,7 +43,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarPictureBase, RavenCarPicture>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarPictureBase, SqlCarPicture>(sp);
+          return GetAdapterDataRepository<ICarPictureBase, CarPicture>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -58,7 +58,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarUserBase, RavenCarUser>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarUserBase, SqlCarUser>(sp);
+          return GetAdapterDataRepository<ICarUserBase, CarUser>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -73,7 +73,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarDocumentBase, RavenCarDocument>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarDocumentBase, SqlCarDocument>(sp);
+          return GetAdapterDataRepository<ICarDocumentBase, CarDocument>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -88,7 +88,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarDocumentHistoryBase, RavenCarDocumentHistory>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarDocumentHistoryBase, SqlCarDocumentHistory>(sp);
+          return GetAdapterDataRepository<ICarDocumentHistoryBase, CarDocumentHistory>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -113,7 +113,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarBase, RavenCar>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarBase, SqlCar>(sp);
+          return GetAdapterDataRepository<ICarBase, Car>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -128,7 +128,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarPictureBase, RavenCarPicture>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarPictureBase, SqlCarPicture>(sp);
+          return GetAdapterDataRepository<ICarPictureBase, CarPicture>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -143,7 +143,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarUserBase, RavenCarUser>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarUserBase, SqlCarUser>(sp);
+          return GetAdapterDataRepository<ICarUserBase, CarUser>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -158,7 +158,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarDocumentBase, RavenCarDocument>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarDocumentBase, SqlCarDocument>(sp);
+          return GetAdapterDataRepository<ICarDocumentBase, CarDocument>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -173,7 +173,7 @@ namespace DataAccess.Manager.Services
         case DatabaseProvider.RavenDb:
           return GetAdapterDataRepository<ICarDocumentHistoryBase, RavenCarDocumentHistory>(sp);
         case DatabaseProvider.Sql:
-          return GetAdapterDataRepository<ICarDocumentHistoryBase, SqlCarDocumentHistory>(sp);
+          return GetAdapterDataRepository<ICarDocumentHistoryBase, CarDocumentHistory>(sp);
         default:
           throw new ArgumentOutOfRangeException();
       }

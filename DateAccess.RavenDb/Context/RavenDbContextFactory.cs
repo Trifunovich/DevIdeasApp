@@ -51,15 +51,16 @@ namespace DateAccess.RavenDb.Context
       }
     }
 
-    public static bool DisplayServerInBrowser()
+    public static async Task<string> DisplayServerInBrowser()
     {
       if (_isServerRunning)
       {
         EmbeddedServer.Instance.OpenStudioInBrowser();
-        return true;
+        var uri = await EmbeddedServer.Instance.GetServerUriAsync();
+        return uri.ToString();
       }
 
-      return false;
+      return null;
     }
 
     public async Task RunThroughSession(Func<IAsyncDocumentSession, Task<bool>> function)

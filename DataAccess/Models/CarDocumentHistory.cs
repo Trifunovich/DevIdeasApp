@@ -7,6 +7,8 @@ namespace DataAccess.Models
   {
     public int CarId { get; set; }
 
-    public List<ICarDocumentBase> Docs { get; set; }
+    protected abstract void AddDoc(ICarDocumentBase doc);
+    
+    public abstract List<ICarDocumentBase> GetDocs { get; }
   }
 }

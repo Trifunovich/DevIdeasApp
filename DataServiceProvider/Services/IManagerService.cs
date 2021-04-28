@@ -5,7 +5,7 @@ namespace DataServiceProvider.Services
 {
   public interface IManagerService
   {
-    Task<bool> DisplayEmbeddedRavenServer();
+    Task<string> DisplayEmbeddedRavenServer();
   }
 
   class ManagerService : IManagerService
@@ -16,9 +16,9 @@ namespace DataServiceProvider.Services
     {
       _managementService = managementService;
     }
-    public Task<bool> DisplayEmbeddedRavenServer()
+    public async Task<string> DisplayEmbeddedRavenServer()
     {
-      return _managementService.DisplayRavenEmbeddedServerInTheBrowser();
+      return await _managementService.DisplayRavenEmbeddedServerInTheBrowser();
     }
   }
 }

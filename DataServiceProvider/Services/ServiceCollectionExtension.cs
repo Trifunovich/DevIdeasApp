@@ -18,6 +18,7 @@ namespace DataServiceProvider.Services
       var assemblies = AppDomain.CurrentDomain.GetAssemblies();
       services.AddAutoMapper(assemblies);
       services.AddScoped<ICarService, CarService>();
+
       services.AddScoped<ICarUserService, CarUserService>();
       services.AddScoped<ICarPictureService, CarPictureService>();
       services.AddScoped<ICarDocumentService, CarDocumentService>();

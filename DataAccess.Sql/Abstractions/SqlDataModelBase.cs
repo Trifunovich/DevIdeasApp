@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using Dapper.Contrib.Extensions;
 using DataAccess.Core.Abstractions;
@@ -15,7 +16,7 @@ namespace DataAccess.Sql.Abstractions
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public  int Id { get; set; }
+    public int Id { get; set; }
 
     public override string GetId => Id.ToString();
 
