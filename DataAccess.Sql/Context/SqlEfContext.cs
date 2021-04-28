@@ -19,7 +19,7 @@ namespace DataAccess.Sql.Context
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       base.OnConfiguring(optionsBuilder);
-      //optionsBuilder.UseSqlServer(_connectionFactory?.CreateSqlDbConnection()?.ConnectionString);
+      //optionsBuilder.UseSqlite(_connectionFactory?.CreateSqlDbConnection()?.ConnectionString);
     }
 
     public DbSet<Car> Cars { get; set; }

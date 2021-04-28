@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using DataAccess.Sql.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,11 @@ namespace DataAccess.Sql.Context
     SqlEfContext IDesignTimeDbContextFactory<SqlEfContext>.CreateDbContext(string[] args)
     {
       var builder = new DbContextOptionsBuilder<SqlEfContext>();
-      builder.UseSqlite("Data Source=LocalSqliteDb.db;");
+      string path = VisualStudioProvider.TryGetSolutionDirectoryInfo().FullName + @"\DataAccess.Sql\LocalSqliteDb.db";
+   
+      File.WriteAllText(@"F:\Logs\WriteText.txt", path);
+
+      builder.UseSqlite($@"Data Source={path};");
       return new SqlEfContext(builder.Options, null);
     }
   }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using DataAccess.Sql.Helpers;
+using Microsoft.Data.Sqlite;
 
 namespace DataAccess.Sql.Context
 {
@@ -9,8 +11,12 @@ namespace DataAccess.Sql.Context
   {
     public IDbConnection CreateSqlDbConnection()
     {
+      string basePath = Directory.GetCurrentDirectory();
+      string connString = ConnectionHelper.SqlConnectionString;
       // Connection string setting
-      var connectionStringValue = ConnectionHelper.SqlConnectionString;
+     // var connectionStringValue = $@"Data Source={Path.Combine(basePath, connString)}";
+
+      var connectionStringValue = connString;
 
       // Assume failure.
       IDbConnection connection;
@@ -22,7 +28,7 @@ namespace DataAccess.Sql.Context
       try
       {
         // Create Connection
-        connection = new SqlConnection(connectionStringValue) {ConnectionString = connectionStringValue};
+        connection = new SqliteConnection(connectionStringValue) {ConnectionString = connectionStringValue};
       }
       catch (Exception ex)
       {

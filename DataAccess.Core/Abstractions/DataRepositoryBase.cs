@@ -155,6 +155,7 @@ namespace DataAccess.Core.Abstractions
       if (InputValidator.ValidateInputList(sqlDataModels))
       {
         await GetInsertFunction(sqlDataModels);
+        await SaveChanges();
         LogInsertedIntoDb(sqlDataModels.Count());
         return sqlDataModels.Count();
       }
@@ -167,6 +168,7 @@ namespace DataAccess.Core.Abstractions
       if (InputValidator.ValidateValue(record))
       {
         var res = await GetAddFunction(record);
+        await SaveChanges();
         LogAddedRecordToDb(record);
         return res;
       }
@@ -193,6 +195,7 @@ namespace DataAccess.Core.Abstractions
         }
 
         LogDeletedRecordFromDb(record, isHard);
+        await SaveChanges();
         return await Task.FromResult(1);
       }
 
@@ -210,6 +213,7 @@ namespace DataAccess.Core.Abstractions
       {
         var res = await GetUpdateFunction(record);
         LogUpdatedRecordInDb(record);
+        await SaveChanges();
         return res;
       }
 

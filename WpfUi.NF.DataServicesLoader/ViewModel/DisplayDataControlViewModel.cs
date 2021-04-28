@@ -165,6 +165,7 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
     {
       int count = int.Parse(obj.ToString() ?? string.Empty);
       var res = await InsertData(count);
+
     }
 
     private async Task<int?> InsertData(int count)
@@ -212,7 +213,8 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
       {
         var fakes = faker.Generate(count);
         var mapped = fakes.Select(f => _mapper.Map<TInputDto>(f));
-        return await carService.Insert(mapped);
+        var result = await carService.Insert(mapped);
+        return result;
       }
     }
 

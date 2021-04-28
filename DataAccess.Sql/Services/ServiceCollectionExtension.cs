@@ -42,7 +42,7 @@ namespace DataAccess.Sql.Services
 
     public static ContainerBuilder AddSqlDataAccessInternals(this ContainerBuilder builder)
     {
-      builder.RegisterType<EfContextFactory>().As<IEfContextFactory>().SingleInstance();
+      builder.RegisterType<EfContextFactory>().As<IEfContextFactory>();
       builder.RegisterType(typeof(SqlConnectionFactory)).As(typeof(ISqlConnectionFactory)).SingleInstance();
       builder.RegisterGeneric(typeof(DapperResolver<>)).As(typeof(IDapperResolver<>)).SingleInstance();
       
