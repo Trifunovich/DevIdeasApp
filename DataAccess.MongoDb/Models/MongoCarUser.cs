@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using DataAccess.Core.Attributes;
+using System.ComponentModel.DataAnnotations.Schema;
 using DataAccess.Models;
 using DataAccess.MongoDb.Abstractions;
 
 namespace DataAccess.MongoDb.Models
 {
-  [Table("CarUsers")]
+  [Core.Attributes.Table("CarUsers")]
   internal class MongoCarUser : MongoDbDataModelBase, ICarUserBase
   {
     public string EMail { get; set; }
@@ -16,6 +15,8 @@ namespace DataAccess.MongoDb.Models
     public string MiddleName { get; set; }
     public DateTime DateOfBirth { get; set; }
     public List<MongoCar> Cars { get; set; }
-    public List<ICarBase> GetCars => Cars.OfType<ICarBase>().ToList();
+
+    [NotMapped]
+    public List<ICarBase> AllCars { get; set; }
   }
 }

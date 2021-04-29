@@ -1,6 +1,8 @@
-﻿namespace DataAccess.Sql.Context
+﻿using System;
+
+namespace DataAccess.Sql.Context
 {
-  internal interface IEfContextFactory
+  internal interface IEfContextFactory : IDisposable
   {
     SqlEfContext CreateEfContext();
   }

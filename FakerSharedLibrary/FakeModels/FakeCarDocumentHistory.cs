@@ -6,10 +6,14 @@ namespace FakerSharedLibrary.FakeModels
 {
   public class FakeCarDocumentHistory : FakeDataModelBase, ICarDocumentHistoryBase
   {
-    private List<ICarDocumentBase> _getDocs;
+    public FakeCarDocumentHistory()
+    {
+      GetDocs = new List<ICarDocumentBase>();
+    }
+
     public int CarId { get; set; }
 
-    public List<ICarDocumentBase> GetDocs => _getDocs;
+    public List<ICarDocumentBase> GetDocs { get; set; }
 
     public List<string> DocIds { get; set; }
   }

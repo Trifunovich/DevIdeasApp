@@ -165,7 +165,6 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
     {
       int count = int.Parse(obj.ToString() ?? string.Empty);
       var res = await InsertData(count);
-
     }
 
     private async Task<int?> InsertData(int count)

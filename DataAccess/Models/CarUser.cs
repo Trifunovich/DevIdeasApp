@@ -16,6 +16,6 @@ namespace DataAccess.Models
 
     protected abstract void AddCar(ICarBase doc);
 
-    public abstract List<ICarBase> GetCars { get; }
+    public abstract List<ICarBase> AllCars { get; set; }
   };
 }

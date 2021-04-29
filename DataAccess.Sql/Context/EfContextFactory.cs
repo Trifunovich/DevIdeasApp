@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Sql.Context
 {
@@ -15,6 +16,7 @@ namespace DataAccess.Sql.Context
       if (!_mirated)
       {
         dbContext.Database.Migrate();
+        _dbContext.Database.AutoTransactionsEnabled = true;
         _mirated = true;
       }
     }
@@ -22,6 +24,11 @@ namespace DataAccess.Sql.Context
     public SqlEfContext CreateEfContext()
     {
       return _dbContext;
+    }
+
+    public void Dispose()
+    {
+      _dbContext?.Dispose();
     }
   }
 }

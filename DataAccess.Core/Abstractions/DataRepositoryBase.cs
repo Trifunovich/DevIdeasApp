@@ -252,6 +252,8 @@ namespace DataAccess.Core.Abstractions
     {
       Transaction?.Dispose();
       TokenSource?.Dispose();
+      Transaction = null;
+      TokenSource = null;
       Logger?.LogInformation("Resources in data repository base of type {name} disposed", typeof(T).Name);
     }
 

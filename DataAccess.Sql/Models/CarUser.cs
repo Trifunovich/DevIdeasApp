@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 using DataAccess.Models;
 using DataAccess.Sql.Abstractions;
 
@@ -31,6 +31,7 @@ namespace DataAccess.Sql.Models
 
     public virtual ICollection<CarCarUser> CarCarUsers { get; }
 
-    public List<ICarBase> GetCars => CarCarUsers.Select(c => c.Car as ICarBase).ToList();
+    [NotMapped]
+    public List<ICarBase> AllCars { get; set; }
   }
 }

@@ -20,7 +20,7 @@ namespace DataAccess.Sql.Repositories
     public EfDataRepository(IEfContextFactory contextFactory, ILogger<EfDataRepository<T>> logger, IRepositoryInputValidator inputValidator) : base(logger, inputValidator)
     {
       DbContext = contextFactory.CreateEfContext();
-      Transaction = DbContext.Database?.CurrentTransaction?.GetDbTransaction() ?? DbContext?.Database?.BeginTransaction().GetDbTransaction();
+      Transaction = null;
       LogStartedRepo();
     }
 
@@ -94,7 +94,7 @@ namespace DataAccess.Sql.Repositories
     public override void Dispose()
     {
       base.Dispose();
-      DbContext?.Dispose();
+      //DbContext?.Dispose();
       LogDisposedRepo();
     }
   }

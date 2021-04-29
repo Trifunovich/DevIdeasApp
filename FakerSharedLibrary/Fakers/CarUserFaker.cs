@@ -14,14 +14,14 @@ namespace FakerSharedLibrary.Fakers
     public CarUserFaker()
     {
       var fakedCars = carFaker.GenerateBetween(5, 25).Select(x => x as ICarBase).ToList(); 
-      var take = fakedCars.OrderBy(x => rnd.Next()).Take(rnd.Next(0, fakedCars.Count - 1));
+      var take = fakedCars.OrderBy(x => rnd.Next()).Take(rnd.Next(0, fakedCars.Count - 1)).ToList();
 
       RuleFor(fake => fake.DateOfBirth, f => new DateTime(rnd.Next(1950, 2020), rnd.Next(1, 12), rnd.Next(1, 28)));
       RuleFor(fake => fake.EMail, f => f.Internet.Email());
       RuleFor(fake => fake.FirstName, f => f.Person.FirstName);
       RuleFor(fake => fake.MiddleName, f => f.Person.FirstName);
       RuleFor(fake => fake.LastName, f => f.Person.LastName);
-      RuleFor(fake => fake.GetCars, f => take);
+      RuleFor(fake => fake.AllCars, f => take);
     }
   }
 }

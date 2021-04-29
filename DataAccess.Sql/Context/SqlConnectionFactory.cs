@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using DataAccess.Sql.Helpers;
+using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 
 namespace DataAccess.Sql.Context
@@ -28,7 +29,7 @@ namespace DataAccess.Sql.Context
       try
       {
         // Create Connection
-        connection = new SqliteConnection(connectionStringValue) {ConnectionString = connectionStringValue};
+        connection = new System.Data.SqlClient.SqlConnection(connectionStringValue) {ConnectionString = connectionStringValue};
       }
       catch (Exception ex)
       {

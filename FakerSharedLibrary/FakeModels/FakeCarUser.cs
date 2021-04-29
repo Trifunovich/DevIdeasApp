@@ -9,6 +9,11 @@ namespace FakerSharedLibrary.FakeModels
   [Table("CarUsers")]
   public class FakeCarUser : FakeDataModelBase, ICarUserBase
   {
+    public FakeCarUser()
+    {
+      AllCars = new List<ICarBase>();  
+    }
+
     public string EMail { get; set; }
 
     public string FirstName { get; set; }
@@ -19,6 +24,6 @@ namespace FakerSharedLibrary.FakeModels
 
     public DateTime DateOfBirth { get; set; }
 
-    public List<ICarBase> GetCars { get; set; }
+    public List<ICarBase> AllCars { get; set; }
   }
 }

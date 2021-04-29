@@ -20,7 +20,7 @@ namespace DataAccess.Sql.Helpers
       ? Enums.OrmType.EfCore
       : Enums.OrmType.Dapper;
 
-    public static string SqlConnectionString => ConfigRoot.GetConnectionString("Sqlite");
+    public static string SqlConnectionString => ConfigRoot.GetConnectionString("MSSql");
     
   }
 }

@@ -42,7 +42,7 @@ namespace DataAccess.Sql.Services
 
     public static ContainerBuilder AddSqlDataAccessInternals(this ContainerBuilder builder)
     {
-      builder.RegisterType<EfContextFactory>().As<IEfContextFactory>();
+      builder.RegisterType<EfContextFactory>().As<IEfContextFactory>().SingleInstance();
       builder.RegisterType(typeof(SqlConnectionFactory)).As(typeof(ISqlConnectionFactory)).SingleInstance();
       builder.RegisterGeneric(typeof(DapperResolver<>)).As(typeof(IDapperResolver<>)).SingleInstance();
       
@@ -65,7 +65,7 @@ namespace DataAccess.Sql.Services
         {
           var dbContextOptions = new DbContextOptions<TContext>(new Dictionary<Type, IDbContextOptionsExtension>());
           var optionsBuilder = new DbContextOptionsBuilder<TContext>(dbContextOptions)
-            .UseSqlite(ConnectionHelper.SqlConnectionString);
+            .UseSqlServer(ConnectionHelper.SqlConnectionString);
 
           return optionsBuilder.Options;
         }).As<DbContextOptions<TContext>>()

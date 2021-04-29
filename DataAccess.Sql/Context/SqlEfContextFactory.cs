@@ -20,7 +20,7 @@ namespace DataAccess.Sql.Context
    
       File.WriteAllText(@"F:\Logs\WriteText.txt", path);
 
-      builder.UseSqlite($@"Data Source={path};");
+      builder.UseSqlServer($@"Data Source=localhost\SQLEXPRESS;Initial Catalog=TestDb;Integrated Security=True");
       return new SqlEfContext(builder.Options, null);
     }
   }

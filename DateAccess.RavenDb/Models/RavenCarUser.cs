@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using DataAccess.Core.Attributes;
+using System.ComponentModel.DataAnnotations.Schema;
 using DataAccess.Models;
 using DateAccess.RavenDb.Abstractions;
 
 namespace DateAccess.RavenDb.Models
 {
-  [Table("CarUsers")]
+  [DataAccess.Core.Attributes.Table("CarUsers")]
   internal class RavenCarUser : RavenDbDataModelBase, ICarUserBase
   {
     public string EMail { get; set; }
@@ -22,6 +21,7 @@ namespace DateAccess.RavenDb.Models
 
     public List<RavenCar> Cars { get; set; }
 
-    public List<ICarBase> GetCars => Cars.OfType<ICarBase>().ToList();
+    [NotMapped]
+    public List<ICarBase> AllCars { get; set; }
   }
 }
