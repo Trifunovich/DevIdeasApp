@@ -142,12 +142,15 @@ namespace DataAccess.Manager.Mapper
         {
           case DatabaseProvider.MongoDb:
             CreateMap<ICarUserBase, MongoCarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<MongoCarUserResolver>());
+            //CreateMap(typeof(T), typeof(TOutputDto));
             break;
           case DatabaseProvider.RavenDb:
             CreateMap<ICarUserBase, RavenCarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<RavenCarUserResolver>());
+            //CreateMap(typeof(T), typeof(TOutputDto));
             break;
           case DatabaseProvider.Sql:
             CreateMap<ICarUserBase, CarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<CarUserResolver>());
+          
             break;
           default:
             throw new ArgumentOutOfRangeException();
@@ -156,6 +159,7 @@ namespace DataAccess.Manager.Mapper
       else
       {
         CreateMap(typeof(T), t);
+        CreateMap(typeof(T), typeof(TOutputDto));
       }
 
       if (typeof(TInputDto).IsAssignableFrom(typeof(CarUserInputDto)))
@@ -167,13 +171,34 @@ namespace DataAccess.Manager.Mapper
         CreateMap(typeof(TInputDto), t);
       }
 
-      CreateMap(t, typeof(TOutputDto));
-  
+      if (t == typeof(CarUser))
+      {
+        CreateMap<CarUser, CarUserOutputDto>().BeforeMap(BeforeMapCarUser);
+      }
+      else
+      {
+        CreateMap(t, typeof(TOutputDto));
+      }
+
       CreateMap(typeof(T), typeof(TInputDto));
 
       CreateMap(typeof(TInputDto), typeof(T));
-      CreateMap(typeof(T), typeof(TOutputDto));
+    
       CreateMap(t, typeof(T));
+    }
+
+    private void BeforeMapCarUser(CarUser cu, CarUserOutputDto cuOutput)
+    {
+      cu.AllCars = cu.CarCarUsers.Select(c => c.Car as ICarBase).ToList();
+    }
+  }
+
+  internal class CarCarUserResolver : IValueResolver<CarUser, CarUserOutputDto, List<CarOutputDto>>
+  {
+    public List<CarOutputDto> Resolve(CarUser source, CarUserOutputDto destination, List<CarOutputDto> destMember, ResolutionContext context)
+    {
+      var res = source.CarCarUsers.Select(c => context.Mapper.Map<CarOutputDto>(c)).ToList();
+      return res;
     }
   }
 
@@ -181,7 +206,7 @@ namespace DataAccess.Manager.Mapper
   {
     public ICarUserBase Convert(CarUserInputDto source, ICarUserBase destination, ResolutionContext context)
     {
-      destination.AllCars = source.Cars?.Select(s => context.Mapper.Map<CarInputDto>(source: s) as ICarBase).ToList();
+      destination.AllCars = source.AllCars?.Select(s => context.Mapper.Map<CarInputDto>(source: s) as ICarBase).ToList();
       return context.Mapper.Map<RavenCarUser>(source);
     }
   }
@@ -210,11 +235,5 @@ namespace DataAccess.Manager.Mapper
     }
   }
 
-  class CarCarUserResolver : IValueResolver<ICarUserBase, CarUser, List<CarCarUser>>
-  {
-    public List<CarCarUser> Resolve(ICarUserBase source, CarUser destination, List<CarCarUser> destMember, ResolutionContext context)
-    {
-      return destination.AllCars.Select(c => new CarCarUser {Car = c as Car, CarUser = destination}).ToList();
-    }
-  }
+
 }

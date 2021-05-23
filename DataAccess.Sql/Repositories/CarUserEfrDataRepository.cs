@@ -23,7 +23,7 @@ namespace DataAccess.Sql.Repositories
     protected override Func<PagingParameters, bool?, Task<IList<CarUser>>> GetPageFunction =>
       async (PagingParameters pager, bool? isActive) =>
       {
-        var results = await DataSet.Where(x => isActive == null || x.IsActive == isActive).Skip(pager.FirstElementPosition).Take(pager.PageSize).ToListAsync(TokenSource.Token);
+        var results = await DataSet.Include(c => c.CarCarUsers).ThenInclude(x => x.Car).Where(x => (isActive == null || x.IsActive == isActive) && x.CarCarUsers != null && x.CarCarUsers.Any()).Skip(pager.FirstElementPosition).Take(pager.PageSize).ToListAsync(TokenSource.Token);
         //var results = await DataSet.Include(x => x.Cars).Where(x => isActive == null || x.IsActive == isActive).Skip(pager.FirstElementPosition).Take(pager.PageSize).ToListAsync(TokenSource.Token);
         return results;
       };

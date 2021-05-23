@@ -15,7 +15,7 @@ namespace MapperSharedLibrary.Models
 
     public DateTime DateOfBirth { get; set; }
 
-    public List<CarOutputDto> Cars { get; set; }
+    public List<CarOutputDto> AllCars { get; set; }
 
     public string FullName => $"{FirstName} {MiddleName} {LastName}";
     
