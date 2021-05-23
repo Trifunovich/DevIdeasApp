@@ -209,4 +209,12 @@ namespace DataAccess.Manager.Mapper
       return source.AllCars?.Select(s => context.Mapper.Map<Car>(source: s) as ICarBase).ToList();
     }
   }
+
+  class CarCarUserResolver : IValueResolver<ICarUserBase, CarUser, List<CarCarUser>>
+  {
+    public List<CarCarUser> Resolve(ICarUserBase source, CarUser destination, List<CarCarUser> destMember, ResolutionContext context)
+    {
+      return destination.AllCars.Select(c => new CarCarUser {Car = c as Car, CarUser = destination}).ToList();
+    }
+  }
 }

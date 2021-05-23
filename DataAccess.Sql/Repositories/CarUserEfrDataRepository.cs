@@ -35,6 +35,19 @@ namespace DataAccess.Sql.Repositories
         //return await DataSet.Include(x => x.Cars.Where(c => (isActive == null) || c.IsActive == isActive)).Where(cu => (isActive == null || cu.IsActive == isActive) && cu.CreatedOn >= createdAfter && cu.CreatedOn <= (createdBefore ?? DateTime.Now)).ToListAsync();
       };
 
+    private DbSet<CarCarUser> carCarUserDbSet => DbContext.Set<CarCarUser>();
+
+    protected override Func<IEnumerable<CarUser>, Task<int?>> GetInsertFunction =>
+      async (records) =>
+      {
+        var sqlDataModels = records.ToList();
+        var carCarUsers = new List<CarCarUser>();
+        carCarUsers = sqlDataModels.SelectMany(s => s.AllCars.Select(c => new CarCarUser{Car = c as Car, CarUser = s})).ToList();
+        await carCarUserDbSet.AddRangeAsync(carCarUsers);
+        await DataSet.AddRangeAsync(sqlDataModels, TokenSource.Token);
+        return await Task.FromResult(sqlDataModels.Count());
+      };
+
     public CarUserEfrDataRepository(IEfContextFactory contextFactory, ILogger<EfDataRepository<CarUser>> logger, IRepositoryInputValidator inputValidator) : base(contextFactory, logger, inputValidator)
     {
     }

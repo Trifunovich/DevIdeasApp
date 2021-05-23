@@ -37,7 +37,15 @@ namespace DataAccess.Sql.Services
 
     private static void ResolveRepos<T>(ContainerBuilder builder) where T : SqlDataModelBase
     {
-      builder.RegisterType(ConnectionHelper.Orm == Enums.OrmType.Dapper ? typeof(DapperDataRepository<T>) : typeof(EfDataRepository<T>)).As<IDataRepository<T>>();
+      switch (typeof(T))
+      {
+        case Type carUser when carUser == typeof(CarUser):
+          builder.RegisterType(ConnectionHelper.Orm == Enums.OrmType.Dapper ? typeof(CarUserDapperDataRepository) : typeof(CarUserEfrDataRepository)).As<IDataRepository<T>>();
+          break;
+        default:
+          builder.RegisterType(ConnectionHelper.Orm == Enums.OrmType.Dapper ? typeof(DapperDataRepository<T>) : typeof(EfDataRepository<T>)).As<IDataRepository<T>>();
+          break;
+      }
     }
 
     public static ContainerBuilder AddSqlDataAccessInternals(this ContainerBuilder builder)

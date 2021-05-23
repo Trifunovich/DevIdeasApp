@@ -22,7 +22,7 @@ namespace FakerSharedLibrary.Fakers
       RuleFor(fake => fake.MiddleName, f => f.Person.FirstName);
       RuleFor(fake => fake.LastName, f => f.Person.LastName);
      
-      RuleFor(fake => fake.AllCars, take);
+      RuleFor(fake => fake.AllCars, f => take);
     }
   }
 }

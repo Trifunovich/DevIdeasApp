@@ -1,3 +1,0 @@
-﻿namespace DataAccess.Sql.Repositories
-{
-}
