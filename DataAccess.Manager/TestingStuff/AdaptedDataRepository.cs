@@ -66,6 +66,7 @@ namespace DataAccess.Manager.TestingStuff
     public async  Task<int?> Insert(IEnumerable<T> records)
     {
       var mapped = records.Select(x => _mapper.Map<U>(x));
+      var mapList = mapped.ToList();
       return await _baseRepository.Insert(mapped);
     }
 

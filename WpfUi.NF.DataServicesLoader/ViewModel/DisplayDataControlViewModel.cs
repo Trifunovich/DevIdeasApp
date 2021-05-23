@@ -211,7 +211,7 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
       using (var carService = factory.CreateService())
       {
         var fakes = faker.Generate(count);
-        var mapped = fakes.Select(f => _mapper.Map<TInputDto>(f));
+        var mapped = fakes.Select(f => _mapper.Map<TInputDto>(f)).ToList();
         var result = await carService.Insert(mapped);
         return result;
       }

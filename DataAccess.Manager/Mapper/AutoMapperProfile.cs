@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using DataAccess.Core.Abstractions;
 using DataAccess.Manager.Helpers;
@@ -133,27 +135,78 @@ namespace DataAccess.Manager.Mapper
       where TInputDto : IInputDto
       where TOutputDto : IOutputDto
     {
+
+      if (typeof(T).IsAssignableFrom(typeof(ICarUserBase)))
+      {
+        switch (DiResolver.Provider)
+        {
+          case DatabaseProvider.MongoDb:
+            CreateMap<ICarUserBase, MongoCarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<MongoCarUserResolver>());
+            break;
+          case DatabaseProvider.RavenDb:
+            CreateMap<ICarUserBase, RavenCarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<RavenCarUserResolver>());
+            break;
+          case DatabaseProvider.Sql:
+            CreateMap<ICarUserBase, CarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<CarUserResolver>());
+            break;
+          default:
+            throw new ArgumentOutOfRangeException();
+        }
+      }
+      else
+      {
+        CreateMap(typeof(T), t);
+      }
+
+      if (typeof(TInputDto).IsAssignableFrom(typeof(CarUserInputDto)))
+      {
+        CreateMap<CarUserInputDto, ICarUserBase>().ConvertUsing<RavenCarUserInputConverter>();
+      }
+      else
+      {
+        CreateMap(typeof(TInputDto), t);
+      }
+
       CreateMap(t, typeof(TOutputDto));
-      CreateMap(typeof(TInputDto), t);
+  
       CreateMap(typeof(T), typeof(TInputDto));
 
       CreateMap(typeof(TInputDto), typeof(T));
       CreateMap(typeof(T), typeof(TOutputDto));
-      
-      CreateMap(typeof(T), t);
       CreateMap(t, typeof(T));
-      
-      //CreateMap<TP, TOutputDto>(); ;
-      //CreateMap<TInputDto, TP>();
-      //CreateMap<T, TInputDto>();
-      
-      //CreateMap<TInputDto, T>();
-      //CreateMap<T, TOutputDto>();
-
-      //CreateMap<T, TP>();
-      //CreateMap<TP, T>();
     }
-    
-    
+  }
+
+  class RavenCarUserInputConverter : ITypeConverter<CarUserInputDto, ICarUserBase>
+  {
+    public ICarUserBase Convert(CarUserInputDto source, ICarUserBase destination, ResolutionContext context)
+    {
+      destination.AllCars = source.Cars?.Select(s => context.Mapper.Map<CarInputDto>(source: s) as ICarBase).ToList();
+      return context.Mapper.Map<RavenCarUser>(source);
+    }
+  }
+
+  class RavenCarUserResolver: IValueResolver <ICarUserBase, RavenCarUser, List<ICarBase>> 
+  {
+    public List<ICarBase> Resolve(ICarUserBase source, RavenCarUser destination, List<ICarBase> destMember, ResolutionContext context)
+    {
+      return source.AllCars?.Select(s => context.Mapper.Map<RavenCar>(source: s) as ICarBase).ToList();
+    }
+  }
+
+  class MongoCarUserResolver : IValueResolver<ICarUserBase, MongoCarUser, List<ICarBase>>
+  {
+    public List<ICarBase> Resolve(ICarUserBase source, MongoCarUser destination, List<ICarBase> destMember, ResolutionContext context)
+    {
+      return source.AllCars?.Select(s => context.Mapper.Map<MongoCar>(source: s) as ICarBase).ToList();
+    }
+  }
+
+  class CarUserResolver : IValueResolver<ICarUserBase, CarUser, List<ICarBase>>
+  {
+    public List<ICarBase> Resolve(ICarUserBase source, CarUser destination, List<ICarBase> destMember, ResolutionContext context)
+    {
+      return source.AllCars?.Select(s => context.Mapper.Map<Car>(source: s) as ICarBase).ToList();
+    }
   }
 }
