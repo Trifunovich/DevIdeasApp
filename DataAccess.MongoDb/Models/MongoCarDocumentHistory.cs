@@ -8,7 +8,6 @@ namespace DataAccess.MongoDb.Models
   internal class MongoCarDocumentHistory : MongoDbDataModelBase, ICarDocumentHistoryBase
   {
     public int CarId { get; set; }
-    public List<MongoCarDocument> Docs { get; set; }
-    public List<ICarDocumentBase> GetDocs => Docs.OfType<ICarDocumentBase>().ToList();
+    public List<ICarDocumentBase> Docs { get; set; }
   }
 }

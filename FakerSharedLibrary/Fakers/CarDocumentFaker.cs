@@ -23,11 +23,13 @@ namespace FakerSharedLibrary.Fakers
     private Random rnd = new Random();
 
     public CarDocumentHistoryFaker()
-    {
+    { 
       var fakeDocs = docFaker.Generate(25).OfType<ICarDocumentBase>().ToList();
-      var take = fakeDocs.OrderBy(x => rnd.Next()).Take(rnd.Next(0, fakeDocs.Count - 1));
-      RuleFor(fake => fake.CarId, fake => 0);
-      RuleFor(fake => fake.DocIds , fake => take.Select(s => s.GetId));
+      var take = fakeDocs.OrderBy(x => rnd.Next()).Take(rnd.Next(0, fakeDocs.Count - 1)).ToList();
+      var ids = take.Select(s => s.GetId).ToList();
+      RuleFor(fake => fake.CarId, 0);
+      RuleFor(fake => fake.DocIds , ids);
+      RuleFor(fake => fake.Docs, take);
     }
   }
 }

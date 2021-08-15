@@ -9,8 +9,6 @@ namespace DateAccess.RavenDb.Models
   {
     public int CarId { get; set; }
 
-    public List<RavenCarDocument> Docs { get; set; }
-
-    public List<ICarDocumentBase> GetDocs => Docs.OfType<ICarDocumentBase>().ToList();
+    public List<ICarDocumentBase> Docs { get; set; }
   }
 }

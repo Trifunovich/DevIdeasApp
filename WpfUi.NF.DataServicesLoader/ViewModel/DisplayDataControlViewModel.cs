@@ -163,8 +163,16 @@ namespace WpfUi.NF.DataServicesLoader.ViewModel
 
     private async void OnInsert(object obj)
     {
-      int count = int.Parse(obj.ToString() ?? string.Empty);
-      var res = await InsertData(count);
+      try
+      {
+        int count = int.Parse(obj.ToString() ?? string.Empty);
+        var res = await InsertData(count);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        throw;
+      }
     }
 
     private async Task<int?> InsertData(int count)

@@ -7,6 +7,6 @@ namespace DataAccess.Models
   {
     int CarId { get; set; }
 
-    List<ICarDocumentBase> GetDocs { get; }
+    List<ICarDocumentBase> Docs { get; set; }
   }
 }

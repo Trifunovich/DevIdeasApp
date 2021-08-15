@@ -8,12 +8,12 @@ namespace FakerSharedLibrary.FakeModels
   {
     public FakeCarDocumentHistory()
     {
-      GetDocs = new List<ICarDocumentBase>();
+      Docs = new List<ICarDocumentBase>();
     }
 
     public int CarId { get; set; }
 
-    public List<ICarDocumentBase> GetDocs { get; set; }
+    public List<ICarDocumentBase> Docs { get; set; }
 
     public List<string> DocIds { get; set; }
   }
