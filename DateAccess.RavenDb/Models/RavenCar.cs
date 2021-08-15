@@ -11,6 +11,6 @@ namespace DateAccess.RavenDb.Models
   {
     public List<RavenCarUser> CarUsers { get; set; }
 
-    public List<ICarUserBase> GetUsers => CarUsers.OfType<ICarUserBase>().ToList();
+    public List<ICarUserBase> GetUsers => CarUsers?.OfType<ICarUserBase>()?.ToList();
   }
 }

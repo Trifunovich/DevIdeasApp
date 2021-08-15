@@ -142,11 +142,9 @@ namespace DataAccess.Manager.Mapper
         {
           case DatabaseProvider.MongoDb:
             CreateMap<ICarUserBase, MongoCarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<MongoCarUserResolver>());
-            //CreateMap(typeof(T), typeof(TOutputDto));
             break;
           case DatabaseProvider.RavenDb:
             CreateMap<ICarUserBase, RavenCarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<RavenCarUserResolver>());
-            //CreateMap(typeof(T), typeof(TOutputDto));
             break;
           case DatabaseProvider.Sql:
             CreateMap<ICarUserBase, CarUser>().ForMember(cu => cu.AllCars, opt => opt.MapFrom<CarUserResolver>());
@@ -215,7 +213,8 @@ namespace DataAccess.Manager.Mapper
   {
     public List<ICarBase> Resolve(ICarUserBase source, RavenCarUser destination, List<ICarBase> destMember, ResolutionContext context)
     {
-      return source.AllCars?.Select(s => context.Mapper.Map<RavenCar>(source: s) as ICarBase).ToList();
+      var res = source.AllCars?.Select(s => context.Mapper.Map<RavenCar>(source: s) as ICarBase).ToList();
+      return res;
     }
   }
 

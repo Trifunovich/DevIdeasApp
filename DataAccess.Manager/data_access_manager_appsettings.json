@@ -1,5 +1,5 @@
 {
-  "DatabaseProvider": "Sql",
+  "DatabaseProvider": "RavenDb",
 
   "PreferredOrm": "EntityFramework",
 
