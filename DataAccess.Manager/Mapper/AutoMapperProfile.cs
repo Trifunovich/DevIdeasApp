@@ -129,7 +129,7 @@ namespace DataAccess.Manager.Mapper
       return result;
     }
 
-
+    //TODO: clean this mess here
     private void RegisterMapping<T,  TInputDto, TOutputDto>(Type t) 
       where T : IDataModelBase
       where TInputDto : IInputDto
@@ -156,7 +156,20 @@ namespace DataAccess.Manager.Mapper
       }
       else if (typeof(T).IsAssignableFrom(typeof(ICarDocumentHistoryBase)))
       {
-        CreateMap<ICarDocumentHistoryBase, RavenCarDocumentHistory>().ForMember(cu => cu.Docs, opt => opt.MapFrom<RavenCarDocumentHistoryResolver>());
+        switch (DiResolver.Provider)
+        {
+          case DatabaseProvider.MongoDb:
+            CreateMap<ICarDocumentHistoryBase, MongoCarDocumentHistory>().ForMember(cu => cu.Docs, opt => opt.MapFrom<MongoCarDocumentHistoryResolver>());
+            break;
+          case DatabaseProvider.RavenDb:
+            CreateMap<ICarDocumentHistoryBase, RavenCarDocumentHistory>().ForMember(cu => cu.Docs, opt => opt.MapFrom<RavenCarDocumentHistoryResolver>());
+            break;
+          case DatabaseProvider.Sql:
+            CreateMap<ICarDocumentHistoryBase, CarDocumentHistory>().ForMember(cu => cu.Docs, opt => opt.MapFrom<CarDocumentHistoryResolver>());
+            break;
+          default:
+            throw new ArgumentOutOfRangeException();
+        }
       }
       else
       {
@@ -183,7 +196,20 @@ namespace DataAccess.Manager.Mapper
       }
       else if (typeof(TInputDto).IsAssignableFrom(typeof(CarDocumentHistoryInputDto)))
       {
-        CreateMap<CarDocumentHistoryInputDto, ICarDocumentHistoryBase>().ConvertUsing<RavenCarDocumentHistoryInputConverter>();
+        switch (DiResolver.Provider)
+        {
+          case DatabaseProvider.MongoDb:
+            CreateMap<CarDocumentHistoryInputDto, ICarDocumentHistoryBase>().ConvertUsing<MongoCarDocumentHistoryInputConverter>();
+            break;
+          case DatabaseProvider.RavenDb:
+            CreateMap<CarDocumentHistoryInputDto, ICarDocumentHistoryBase>().ConvertUsing<RavenCarDocumentHistoryInputConverter>();
+            break;
+          case DatabaseProvider.Sql:
+            CreateMap<CarDocumentHistoryInputDto, ICarDocumentHistoryBase>().ConvertUsing<CarDocumentHistoryInputConverter>();
+            break;
+          default:
+            throw new ArgumentOutOfRangeException();
+        }
       }
       else
       {
@@ -231,6 +257,26 @@ namespace DataAccess.Manager.Mapper
     }
   }
 
+  class CarDocumentHistoryInputConverter : ITypeConverter<CarDocumentHistoryInputDto, ICarDocumentHistoryBase>
+  {
+    public ICarDocumentHistoryBase Convert(CarDocumentHistoryInputDto source, ICarDocumentHistoryBase destination,
+      ResolutionContext context)
+    {
+      destination.Docs = source.Docs?.Select(s => context.Mapper.Map<CarDocumentInputDto>(source: s) as ICarDocumentBase).ToList();
+      return context.Mapper.Map<CarDocumentHistory>(source);
+    }
+  }
+
+  class MongoCarDocumentHistoryInputConverter : ITypeConverter<CarDocumentHistoryInputDto, ICarDocumentHistoryBase>
+  {
+    public ICarDocumentHistoryBase Convert(CarDocumentHistoryInputDto source, ICarDocumentHistoryBase destination,
+      ResolutionContext context)
+    {
+      destination.Docs = source.Docs?.Select(s => context.Mapper.Map<CarDocumentInputDto>(source: s) as ICarDocumentBase).ToList();
+      return context.Mapper.Map<MongoCarDocumentHistory>(source);
+    }
+  }
+
   class CarUserInputConverter : ITypeConverter<CarUserInputDto, ICarUserBase>
   {
     public ICarUserBase Convert(CarUserInputDto source, ICarUserBase destination, ResolutionContext context)
@@ -264,6 +310,26 @@ namespace DataAccess.Manager.Mapper
       ResolutionContext context)
     {
       var res = source.Docs?.Select(s => context.Mapper.Map<RavenCarDocument>(source: s) as ICarDocumentBase).ToList();
+      return res;
+    }
+  }
+
+  class CarDocumentHistoryResolver : IValueResolver<ICarDocumentHistoryBase, CarDocumentHistory, List<ICarDocumentBase>>
+  {
+    public List<ICarDocumentBase> Resolve(ICarDocumentHistoryBase source, CarDocumentHistory destination, List<ICarDocumentBase> destMember,
+      ResolutionContext context)
+    {
+      var res = source.Docs?.Select(s => context.Mapper.Map<CarDocument>(source: s) as ICarDocumentBase).ToList();
+      return res;
+    }
+  }
+
+  class MongoCarDocumentHistoryResolver : IValueResolver<ICarDocumentHistoryBase, MongoCarDocumentHistory, List<ICarDocumentBase>>
+  {
+    public List<ICarDocumentBase> Resolve(ICarDocumentHistoryBase source, MongoCarDocumentHistory destination, List<ICarDocumentBase> destMember,
+      ResolutionContext context)
+    {
+      var res = source.Docs?.Select(s => context.Mapper.Map<MongoCarDocument>(source: s) as ICarDocumentBase).ToList();
       return res;
     }
   }
